@@ -301,7 +301,8 @@ class SpectralConv1d(nn.Module):
         self.weights1 = nn.Parameter(self.scale * torch.rand(in_channels, out_channels, len(self.index), dtype=torch.cfloat))
         if self.compression > 0:
             print('compressed version')
-            self.weights1 = nn.Parameter(self.scale * torch.rand(in_channels,self.compression, len(self.index), dtype=torch.cfloat))
+            self.weights0 = nn.Parameter(self.scale * torch.rand(in_channels,self.compression,dtype=torch.cfloat))
+            self.weights1 = nn.Parameter(self.scale * torch.rand(self.compression,self.compression, len(self.index), dtype=torch.cfloat))
             self.weights2 = nn.Parameter(self.scale * torch.rand(self.compression,out_channels, dtype=torch.cfloat))
         #print(self.modes2)
         
@@ -326,8 +327,9 @@ class SpectralConv1d(nn.Module):
                 out_ft[:, :,:, :self.modes2] = torch.einsum("bjix,iox->bjox", a, self.weights1)
         elif self.compression > 0:
             a = x_ft[:, :,:, :self.modes2]
-            a = torch.einsum("bjix,ihx->bjhx", a, self.weights1)
-            out_ft[:, :,:, :self.modes2] = torch.einsum("bjhx,ho->bjox", a, self.weights2)
+            a = torch.einsum("bjix,ih->bjhx", a, self.weights0)
+            a = torch.einsum("bjhx,hkx->bjkx", a, self.weights1)
+            out_ft[:, :,:, :self.modes2] = torch.einsum("bjkx,ko->bjox", a, self.weights2)
         # Return to physical space
         x = torch.fft.irfft(out_ft, n=x.size(-1))
         return x
