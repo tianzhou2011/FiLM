@@ -12,8 +12,7 @@ In long-term forecasting, FiLM achieves SOTA, with a **19% relative improvement*
 
 |![image](https://raw.githubusercontent.com/tianzhou2011/FiLM/main/graphs/FNO_structure.png) | ![image](https://raw.githubusercontent.com/tianzhou2011/FiLM/main/graphs/LMU_LMUR_signal_structure.png)
 |:--:|:--:|
-| *Figure 2. Frequency Enhanced Layer (FEL)* | *Figure 3. Legendre Projection
-Unit (LPU)* |
+| *Figure 2. Frequency Enhanced Layer (FEL)* | *Figure 3. Legendre Projection Unit (LPU)* |
 
 
 ## Main Results
