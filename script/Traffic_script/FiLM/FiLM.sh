@@ -92,7 +92,7 @@ python -u run.py \
   --model FiLM \
   --data custom \
   --features M \
-  --seq_len 192 \
+  --seq_len 720 \
   --label_len 48 \
   --pred_len 96 \
   --e_layers 2 \
