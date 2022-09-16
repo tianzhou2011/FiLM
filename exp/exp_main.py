@@ -37,7 +37,10 @@ class Exp_Main(Exp_Basic):
             'Transformer': Transformer,
             'Informer': Informer,
             #'S4':S4_model,
-            'LSTM':LSTM,
+            #'S4film':S4_FiLM,
+            #'LSTM':LSTM,
+            #'Seasonal':Seasonal,
+            #'Ficonv':Ficonv,
             #'Pyraformer':Pyraformer_LR,
             #'Reformer': Reformer,
             'Logformer': Logformer,
@@ -45,6 +48,7 @@ class Exp_Main(Exp_Basic):
             #'Autoformer_sin':Autoformer_sin,
             #'TreeDRNet':TreeDRNet,
             'FiLM':FiLM,
+            #'HippoFNOformerMulti':HippoFNOformerMulti
             #'HippoFNOformer': HippoFNOformer,
         }
         model = model_dict[self.args.model].Model(self.args).float()
@@ -97,7 +101,7 @@ class Exp_Main(Exp_Basic):
                                 with open(self.args.model_id+'data.pickle', 'wb') as f:
                                     pickle.dump(attention, f, pickle.HIGHEST_PROTOCOL)
                         else:
-                            outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)
+                            outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)[0]
                 else:
                     if self.args.output_attention:
                         outputs,attention = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)
@@ -105,7 +109,7 @@ class Exp_Main(Exp_Basic):
                             with open(self.args.model_id+'data.pickle', 'wb') as f:
                                 pickle.dump(attention, f, pickle.HIGHEST_PROTOCOL)
                     else:
-                        outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)
+                        outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)[0]
                 f_dim = -1 if self.args.features == 'MS' else 0
                 batch_y = batch_y[:, -self.args.pred_len:, f_dim:].to(self.device)
 
@@ -169,7 +173,7 @@ class Exp_Main(Exp_Basic):
                         if self.args.output_attention:
                             outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)[0]
                         else:
-                            outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)
+                            outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)[0]
 
                         f_dim = -1 if self.args.features == 'MS' else 0
                         batch_y = batch_y[:, -self.args.pred_len:, f_dim:].to(self.device)
@@ -179,10 +183,13 @@ class Exp_Main(Exp_Basic):
                     if self.args.output_attention:
                         outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)[0]
                     else:
-                        outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)
+                        outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)[0]
 
                     f_dim = -1 if self.args.features == 'MS' else 0
+                    #print(batch_y.shape)
                     batch_y = batch_y[:, -self.args.pred_len:, f_dim:].to(self.device)
+                    #print(batch_y.shape)
+                    #print(outputs.shape)
                     loss = criterion(outputs, batch_y)
                     train_loss.append(loss.item())
 
@@ -199,6 +206,7 @@ class Exp_Main(Exp_Basic):
                     scaler.step(model_optim)
                     scaler.update()
                 else:
+                    loss =loss.clone()
                     loss.backward()
                     model_optim.step()
 
@@ -254,13 +262,13 @@ class Exp_Main(Exp_Basic):
                         if self.args.output_attention:
                             outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)[0]
                         else:
-                            outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)
+                            outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)[0]
                 else:
                     if self.args.output_attention:
                         outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)[0]
 
                     else:
-                        outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)
+                        outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)[0]
 
                 f_dim = -1 if self.args.features == 'MS' else 0
 
@@ -273,11 +281,11 @@ class Exp_Main(Exp_Basic):
 
                 preds.append(pred)
                 trues.append(true)
-                if i % 20 == 0:
-                    input = batch_x.detach().cpu().numpy()
-                    gt = np.concatenate((input[0, :, -1], true[0, :, -1]), axis=0)
-                    pd = np.concatenate((input[0, :, -1], pred[0, :, -1]), axis=0)
-                    visual(gt, pd, os.path.join(folder_path, str(i) + '.pdf'))
+                #if i % 20 == 0:
+                #    input = batch_x.detach().cpu().numpy()
+                #    gt = np.concatenate((input[0, :, -1], true[0, :, -1]), axis=0)
+                #    pd = np.concatenate((input[0, :, -1], pred[0, :, -1]), axis=0)
+                #    visual(gt, pd, os.path.join(folder_path, str(i) + '.pdf'))
 
         preds = np.array(preds)
         trues = np.array(trues)
@@ -333,12 +341,12 @@ class Exp_Main(Exp_Basic):
                         if self.args.output_attention:
                             outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)[0]
                         else:
-                            outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)
+                            outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)[0]
                 else:
                     if self.args.output_attention:
                         outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)[0]
                     else:
-                        outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)
+                        outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)[0]
                 pred = outputs.detach().cpu().numpy()  # .squeeze()
                 preds.append(pred)
 
