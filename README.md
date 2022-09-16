@@ -4,13 +4,21 @@ FiLM: Frequency improved Legendre Memory Model for Long-term Time Series Forecas
 
 In long-term forecasting, FiLM achieves SOTA, with a **19% relative improvement** on six benchmarks, covering five practical applications: **energy, traffic, economics, weather and disease**.
 
-![plot](./graph/FilM_overall.png)
-![plot](./graph/LMU_LMUR_signal_structure.png)
-![plot](./graph/FNO_structure.png)
+
+
+|![Figure1](https://raw.githubusercontent.com/tianzhou2011/FiLM/main/graphs/FilM_overall.png)|
+|:--:| 
+| *Figure 1. Overall structure of FiLM* |
+
+|![image](https://raw.githubusercontent.com/tianzhou2011/FiLM/main/graphs/FNO_structure.png) | ![image](https://raw.githubusercontent.com/tianzhou2011/FiLM/main/graphs/LMU_LMUR_signal_structure.png)
+|:--:|:--:|
+| *Figure 2. Frequency Enhanced Layer (FEL)* | *Figure 3. Legendre Projection
+Unit (LPU)* |
 
 
 ## Main Results
-![plot](./graph/FilM_main_result.png)
+![image](https://raw.githubusercontent.com/tianzhou2011/FiLM/main/graphs/FilM_main_result.png)
+
 
 ## Get Started
 
