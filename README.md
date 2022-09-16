@@ -1,6 +1,7 @@
 # FiLM
 
 FiLM: Frequency improved Legendre Memory Model for Long-term Time Series Forecasting
+https://arxiv.org/abs/2205.08897
 
 In long-term forecasting, FiLM achieves SOTA, with a **19% relative improvement** on six benchmarks, covering five practical applications: **energy, traffic, economics, weather and disease**.
 
