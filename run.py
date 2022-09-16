@@ -4,7 +4,7 @@ import torch
 from exp.exp_main import Exp_Main
 import random
 import numpy as np
-
+#torch.autograd.set_detect_anomaly(True) 
 fix_seed = 2021
 random.seed(fix_seed)
 torch.manual_seed(fix_seed)
@@ -34,7 +34,7 @@ n = 2400
 parser.add_argument('--seq_len', type=int, default=n, help='input sequence length')
 parser.add_argument('--label_len', type=int, default=int(n/2), help='start token length')
 parser.add_argument('--pred_len', type=int, default=n, help='prediction sequence length')
-parser.add_argument('--modes1', type=int, default=1064, help='modes to be selected random 64')
+parser.add_argument('--modes1', type=int, default=64, help='modes to be 64')
 parser.add_argument('--L', type=int, default=3, help='ignore level')
 parser.add_argument('--base',type=str,default='legendre',help='mwt base')
 parser.add_argument('--cross_activation',type=str,default='tanh',help='mwt cross atention activation function tanh or softmax')
@@ -84,7 +84,9 @@ parser.add_argument('--devices', type=str, default='0,1', help='device ids of mu
 parser.add_argument('--add_noise_vali',type=bool,default=False,help='add noise in vali')
 parser.add_argument('--add_noise_train',type=bool,default=False,help='add noise in training')
 parser.add_argument('--ours', default=False, action='store_true')
-parser.add_argument('--version', type=int, default=0, help='gpu')
+parser.add_argument('--version', type=int, default=0, help='compression')
+parser.add_argument('--seasonal',type=int,default=7)
+parser.add_argument('--mode_type',type=int,default=0)
 parser.add_argument('--ratio', type=float, default=0.5, help='dropout')
 
 
