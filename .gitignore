@@ -1,0 +1,8 @@
+results/
+test_results/
+checkpoints/
+data/
+dataset/
+*.txt
+*.ipynb                                                                         
+.idea
