@@ -27,20 +27,20 @@ In long-term forecasting, FiLM achieves SOTA, with a **19% relative improvement*
 3. Train the model. We provide the experiment scripts of all benchmarks under the folder `./scripts`. You can reproduce the Multivariate/Univariate experiment results by:
 
 ```bash
-bash ./scripts/ETT_script/FiLM_ETTm2.sh
-bash ./scripts/ECL_script/FiLM.sh
-bash ./scripts/Exchange_script/FiLM.sh
-bash ./scripts/Traffic_script/FiLM.sh
-bash ./scripts/Weather_script/FiLM.sh
-bash ./scripts/ILI_script/FiLM.sh
+bash ./scripts/ETT_script/FiLM/FiLM_ETTm2.sh
+bash ./scripts/ECL_script/FiLM/FiLM.sh
+bash ./scripts/Exchange_script/FiLM/FiLM.sh
+bash ./scripts/Traffic_script/FiLM/FiLM.sh
+bash ./scripts/Weather_script/FiLM/FiLM.sh
+bash ./scripts/ILI_script/FiLM/FiLM.sh
 
 
-bash ./scripts/ETT_script/FiLM_ETTm2_S.sh
-bash ./scripts/ECL_script/FiLM_S.sh
-bash ./scripts/Exchange_script/FiLM_S.sh
-bash ./scripts/Traffic_script/FiLM_S.sh
-bash ./scripts/Weather_script/FiLM_S.sh
-bash ./scripts/ILI_script/FiLM_S.sh
+bash ./scripts/ETT_script/FiLM/FiLM_ETTm2_S.sh
+bash ./scripts/ECL_script/FiLM/FiLM_S.sh
+bash ./scripts/Exchange_script/FiLM/FiLM_S.sh
+bash ./scripts/Traffic_script/FiLM/FiLM_S.sh
+bash ./scripts/Weather_script/FiLM/FiLM_S.sh
+bash ./scripts/ILI_script/FiLM/FiLM_S.sh
 ```
 
 
